@@ -88,16 +88,15 @@
   } */
 
   .button-primary {
-      @apply py-3 px-2r text-white font-bold uppercase mb-8 bg-black;
-      border-top-left-radius: 30px;
-      border-bottom-right-radius: 30px;
+      @apply py-3 px-2r text-white font-bold uppercase bg-black text-center ;
       margin-top: 32px;
-      background: white;
       transition: all 0.5s ease;
+      text-decoration: none;
 
       &:hover {
           background: linear-gradient(45deg, #D5E351 0%, #79CDD2 100%);
           transition: all 0.5s ease;
+          @apply text-black;
       }
   }
 

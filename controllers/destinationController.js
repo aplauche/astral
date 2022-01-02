@@ -7,7 +7,19 @@ import Destination from "../models/destination";
 
 export const getAllDestinations = async (req,res) => {
     try {
-        const destinations = await Destination.find()
+
+        let destinations;
+
+        if(req.query.sign){
+            
+             destinations = await Destination.find({
+                signs: req.query.sign
+            })
+
+        } else {
+             destinations = await Destination.find()
+        }
+
 
         res.status(200).json({
             success: true,
