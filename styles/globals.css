@@ -1,16 +1,104 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@layer base {
+  * {
+      margin: 0;
+      padding:0;
+      box-sizing: border-box;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  html {
+      @apply bg-light;
+  }
 
-* {
-  box-sizing: border-box;
+  /* main {
+      @apply bg-black;
+  } */
+  
+  html,body, .wrap {
+      overflow-x: hidden;
+  }
+  
+  h1, h2, h3 {
+      @apply font-title;
+  }
+
+  h4, h5, h6 {
+      @apply font-body;
+  }
+  
+  h1 {
+      @apply text-5xl mb-8 font-bold;
+  }
+  h2 {
+      @apply text-4xl font-bold mb-5;
+  }
+  h3 {
+      @apply text-3xl mb-5;
+  }
+  h4 {
+      @apply text-xl mb-5 font-bold;
+  }
+  h5 {
+      @apply text-lg mb-5 font-bold;
+  }
+  h6 {
+      @apply text-lg mb-5;
+  }
+
+  p {
+      @apply mb-5;
+  }
+
+  hr {
+    @apply mb-8;
+  }
+
+  main a {
+    @apply underline;
+  }
+
+  main img {
+    @apply mb-8 block;
+  }
+
+  
+
+
+  
+   .container {
+      width: 100%;
+      max-width: 1200px;
+      padding-left: 32px; 
+      padding-right: 32px; 
+      margin-left: auto;
+      margin-right: auto;
+
+      &.--narrow {
+        max-width: 800px;
+    }
+  }
+
+  /* FORMS */
+
+  /* input, textarea {
+    @apply text-dark block mb-4 w-full max-w-lg p-2 border-brick border-2
+  }
+
+  button[type="submit"] {
+    @apply bg-brick py-2 px-8 uppercase font-bold border-2 border-brick hover:bg-white hover:text-brick
+  } */
+
+  .button-primary {
+      @apply py-3 px-2r text-white font-bold uppercase mb-8 bg-black;
+      border-top-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      margin-top: 32px;
+      background: white;
+      transition: all 0.5s ease;
+
+      &:hover {
+          background: linear-gradient(45deg, #D5E351 0%, #79CDD2 100%);
+          transition: all 0.5s ease;
+      }
+  }
+
 }
