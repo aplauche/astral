@@ -31,6 +31,15 @@ export default function SingleDestinationPage({destination}) {
                                     <li key={sign}>{sign}</li>
                                 ))}
                             </ul>
+
+
+                            <h2>Benefits:</h2>
+
+                            <ul>
+                                {destination.benefits.map(benefit => (
+                                    <li key={benefit}>{benefit}</li>
+                                ))}
+                            </ul>
                             
                         </div>
                         <div className="w-1/3">

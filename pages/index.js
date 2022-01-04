@@ -14,6 +14,7 @@ export default function Home({}) {
 
   const [destinations, setDestinations] = useState([])
   const [signFilter, setSignFilter] = useState("")
+  const [benefitsFilter, setBenefitsFilter] = useState("")
 
   useEffect(() => {
 
@@ -26,9 +27,16 @@ export default function Home({}) {
     const fetchDestinations = async () => {
     
       let link = `/api/destinations/`
+      let firstParam = true
   
       if(signFilter && signFilter !== ""){
-        link = link.concat(`?sign=${signFilter}`)
+        link = link.concat(`?signs=${signFilter}`)
+        firstParam = false
+      }
+
+      if(benefitsFilter && benefitsFilter !== ""){
+        link = link.concat(`${firstParam ? "?" : "&"}benefits=${benefitsFilter}`)
+        firstParam = false
       }
   
       const {data} = await axios.get(link)
@@ -44,7 +52,7 @@ export default function Home({}) {
       isSubscribed = false
     }
 
-  }, [signFilter])
+  }, [signFilter, benefitsFilter])
 
 
 
@@ -54,12 +62,19 @@ export default function Home({}) {
           <HomeHero />
           <div style={{marginTop: -48}} className="container">
             <div className='bg-white py-3r rounded-1r mb-3r flex flex-col items-center'>
-              <p>What Is Your Sign?</p>
+              <p>Browse by sign</p>
               <select value={signFilter} onChange={e => setSignFilter(e.target.value)}>
                 <option value="">Any</option>
                 <option value="Taurus">Taurus</option>
                 <option value="Leo">Leo</option>
                 <option value="Gemini">Gemini</option>
+              </select>
+              <p>Browse by benefits</p>
+              <select value={benefitsFilter} onChange={e => setBenefitsFilter(e.target.value)}>
+                <option value="">Any</option>
+                <option value="Focus">Focus</option>
+                <option value="Calm">Calm</option>
+                <option value="Fertility">Fertility</option>
               </select>
             </div>
           </div>

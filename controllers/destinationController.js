@@ -1,5 +1,5 @@
 import Destination from "../models/destination";
-
+import APICallModifier from "../utils/APICallModifier";
 
 /* GET
 ------- Get all destinations => /api/destinations -------
@@ -8,17 +8,9 @@ import Destination from "../models/destination";
 export const getAllDestinations = async (req,res) => {
     try {
 
-        let destinations;
+        const customCall = new APICallModifier(Destination.find(), req.query).filter()
 
-        if(req.query.sign){
-            
-             destinations = await Destination.find({
-                signs: req.query.sign
-            })
-
-        } else {
-             destinations = await Destination.find()
-        }
+        let destinations = await customCall.query;
 
         res.status(200).json({
             success: true,
