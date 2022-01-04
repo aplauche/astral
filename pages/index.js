@@ -9,31 +9,44 @@ import DestinationCard from '../components/destination/DestinationCard'
 import HomeHero from '../components/layout/HomeHero'
 
 
+
 export default function Home({}) {
 
   const [destinations, setDestinations] = useState([])
   const [signFilter, setSignFilter] = useState("")
 
-  // useEffect(() => {
-  //   fetchDestinations()
-  // }, [])
-
   useEffect(() => {
-    fetchDestinations()
-  }, [signFilter])
 
-  const fetchDestinations = async () => {
+    // We need async function inside because useEffect does not handle promises
+
+    // isSubscribed makes sure the function can not get called twice and have the first call resolve after the second, messing up state.
+
+    let isSubscribed = true
+
+    const fetchDestinations = async () => {
     
-    let link = `/api/destinations/`
-
-    if(signFilter && signFilter !== ""){
-      link = link.concat(`?sign=${signFilter}`)
+      let link = `/api/destinations/`
+  
+      if(signFilter && signFilter !== ""){
+        link = link.concat(`?sign=${signFilter}`)
+      }
+  
+      const {data} = await axios.get(link)
+      
+      if(isSubscribed){
+        setDestinations(data.destinations)
+      }
     }
 
-    const {data} = await axios.get(link)
+    fetchDestinations().catch(err => console.log(err.message))
 
-    setDestinations(data.destinations)
-  }
+    return () => {
+      isSubscribed = false
+    }
+
+  }, [signFilter])
+
+
 
   return (
     <>   
