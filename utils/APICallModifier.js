@@ -13,9 +13,18 @@ class APICallModifier {
         // const removeParams = ['page', 'search']
         // removeParams.forEach(el => delete queryCopy[el])
 
-        this.query = this.query.find(this.queryStr)
 
-        // console.log(this.query);
+        // Manage the benefits query string that requires a special $in operator
+
+        const queryCopy = {...this.queryStr}
+
+        if(queryCopy['benefits[]']){
+            queryCopy['benefits'] = { $in: queryCopy['benefits[]'] }
+            delete queryCopy['benefits[]']
+        }
+
+
+        this.query = this.query.find(queryCopy)
 
         return this;
 

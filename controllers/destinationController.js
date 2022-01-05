@@ -10,7 +10,9 @@ export const getAllDestinations = async (req,res) => {
 
         const customCall = new APICallModifier(Destination.find(), req.query).filter()
 
+
         let destinations = await customCall.query;
+
 
         res.status(200).json({
             success: true,

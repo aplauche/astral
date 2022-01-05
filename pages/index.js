@@ -14,7 +14,10 @@ export default function Home({}) {
 
   const [destinations, setDestinations] = useState([])
   const [signFilter, setSignFilter] = useState("")
-  const [benefitsFilter, setBenefitsFilter] = useState("")
+
+  const [benefits, setBenefits] = useState(["Focus", "Calm", "Fertility"])
+  const [benefitsFilter, setBenefitsFilter] = useState(new Array(benefits.length).fill(false))
+  // const [benefitsFilter, setBenefitsFilter] = useState("")
 
   useEffect(() => {
 
@@ -34,11 +37,20 @@ export default function Home({}) {
         firstParam = false
       }
 
-      if(benefitsFilter && benefitsFilter !== ""){
-        link = link.concat(`${firstParam ? "?" : "&"}benefits=${benefitsFilter}`)
-        firstParam = false
+
+      if(benefitsFilter && benefitsFilter.includes(true)){
+
+        const filteredBenefits = benefits.filter((benefit, index) => {
+          return benefitsFilter[index]
+        })
+
+        filteredBenefits.forEach(benefit => {
+          link = link.concat(`${firstParam ? "?" : "&"}benefits[]=${benefit}`)
+          firstParam = false
+        })
+
       }
-  
+
       const {data} = await axios.get(link)
       
       if(isSubscribed){
@@ -52,9 +64,18 @@ export default function Home({}) {
       isSubscribed = false
     }
 
-  }, [signFilter, benefitsFilter])
+  }, [signFilter, benefitsFilter, benefits])
 
 
+  const handleBenefitsSelect = (position) => {
+
+    // update checked state
+    const updatedCheckedState = benefitsFilter.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setBenefitsFilter(updatedCheckedState)
+  }
 
   return (
     <>   
@@ -70,12 +91,21 @@ export default function Home({}) {
                 <option value="Gemini">Gemini</option>
               </select>
               <p>Browse by benefits</p>
-              <select value={benefitsFilter} onChange={e => setBenefitsFilter(e.target.value)}>
-                <option value="">Any</option>
-                <option value="Focus">Focus</option>
-                <option value="Calm">Calm</option>
-                <option value="Fertility">Fertility</option>
-              </select>
+              {benefits.map((benefit, index)=> (
+                <div key={benefit}>
+                <input
+                    type="checkbox"
+                    id={`custom-checkbox-${index}`}
+                    name={benefit}
+                    value={benefit}
+                    checked={benefitsFilter[index]}
+                    onChange={() => handleBenefitsSelect(index)}
+                  />
+                <label htmlFor={`custom-checkbox-${index}`}>{benefit}</label>
+                </div>
+              ))}
+
+              
             </div>
           </div>
 
@@ -88,17 +118,3 @@ export default function Home({}) {
       </>
   )
 }
-
-// export async function getServerSideProps(context){
-
-
-//   console.log(origin);
-//   const { data } = await axios.get(`${origin}/api/destinations`)
-//   console.log(data.destinations);
-
-//   return {
-//     props: {
-//       destinations : data.destinations
-//     }
-//   }
-// }
