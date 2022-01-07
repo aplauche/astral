@@ -1,36 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import Link from 'next/link'
 import { useSession, signOut, signIn } from "next-auth/react"
+import { UserContext, UserContextProvider } from "../../context/UserContext";
 
 const Header = () => {
 
     const {data: session, status} = useSession()
+    const [userHover, setUserHover] = useState(false)
 
-    useEffect(() => {
-        console.log(session)
-    }, [session])
 
 
     return (
-        <header className='w-full bg-black flex py-1r justify-center items-center'>
+        <header className='w-full bg-black py-1r '>
+            <div className="container flex justify-between items-center h-full">
             <Link href="/">
-            <a className='text-white text-center'>Astral Co.</a>
+                <a className='text-white text-center'>Astral Co.</a>
             </Link>
-            {status == 'loading' && (
-                <p>loading...</p>
-            )}
             {status == 'authenticated' && session.user && (
-                <>
-                    <p>Welcome {session.user.name}</p>
-                    <button onClick={() => signOut()}>Sign out</button>
-                </>
+                <div onMouseLeave={() => setUserHover(false)}    className='relative h-full'>
+                    <button onMouseOver={() => setUserHover(true)} className='text-white'>{session.user.name}</button>
+                    {userHover && 
+                        <div className='absolute bg-black text-white w-32 right-0 p-1r text-right'>
+                           <button onClick={() => signOut()}>Sign out</button>
+                       </div>
+                    }
+             
+                </div>
             )}
             {status == 'unauthenticated' && (
                 <>
-                    <button onClick={() => signIn()}>Sign In</button>
+                    <button class="text-white" onClick={() => signIn()}>Sign In</button>
                 </>
             )}
-
+            </div>
             
         </header>
     )
