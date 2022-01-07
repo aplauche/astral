@@ -1,12 +1,14 @@
 import Booking from "../models/booking";
 import { getSession } from "next-auth/react";
+import catchAsync from '../middlewares/catchAsyncErrors'
+
 
 /* POST
 ------- Create a booking => /api/bookings -------
 */ 
 
-export const createBooking = async (req,res) => {
-    try {
+export const createBooking = catchAsync(async (req,res) => {
+
 
         const session = await getSession({req})
 
@@ -37,8 +39,5 @@ export const createBooking = async (req,res) => {
             success: true,
             booking
         })
-        
-    } catch (error) {
-        console.log(error);
-    }
-}
+
+})
