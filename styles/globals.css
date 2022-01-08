@@ -87,6 +87,22 @@
     @apply py-2 px-8 text-dark uppercase font-bold border-2 border-dark hover:bg-dark hover:text-white
   } 
 
+
+/* TABLES */
+table {
+    border-collapse: collapse;
+}
+tr {
+    border-bottom: 1px solid #ccc;
+}
+th {
+    @apply bg-black text-white;
+}
+th, td {
+    @apply text-left px-2 py-1r;
+
+}
+
 /* BUTTONS */
 
   .button-primary {

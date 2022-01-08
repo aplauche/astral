@@ -20,9 +20,16 @@ const Header = () => {
                 <div onMouseLeave={() => setUserHover(false)}    className='relative h-full'>
                     <button onMouseOver={() => setUserHover(true)} className='text-white'>{session.user.name}</button>
                     {userHover && 
-                        <div className='absolute bg-black text-white w-32 right-0 p-1r text-right'>
-                           <button onClick={() => signOut()}>Sign out</button>
-                       </div>
+                        <ul className='absolute bg-black text-white w-32 right-0 p-1r text-right'>
+                            <li className='py-0p5r'>
+                                <Link href="/account/bookings">
+                                    <a className='text-white text-center'>My Bookings</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <button onClick={() => signOut()}>Sign out</button>
+                            </li>
+                       </ul>
                     }
              
                 </div>

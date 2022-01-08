@@ -1,29 +1,24 @@
 import React from 'react'
 
-const BookingRow = (row) => {
-    return (
-        <tr>
-            <td>{row.checkInDate}</td>
-            <td>{row.checkOutDate}</td>
-            <td>{row.daysOfStay}</td>
-            <td>{row.amountPaid}</td>
-        </tr>
-    )
-}
 
-
-const CustomTable = ({titles, rows, component}) => {
+const CustomTable = ({columns, rows}) => {
     return (
-        <table>
+        <table className='w-full'>
             <thead>
-                {titles.map(title => (
-                    <td>{title}</td>
+                <tr>
+                {columns.map(col => (
+                    <th key={col.title}>{col.title}</th>
                 ))}
+                </tr>
             </thead>
             <tbody>
                 {rows.map(row => (
                   
-                    React.cloneElement('BookingRow', {row})
+                    <tr key={row._id}>
+                        {columns.map(col=>(
+                            <td key={col.title + row._id}>{col.selector(row)}</td>
+                        ))}
+                    </tr>
                  
                 ))}
             </tbody>

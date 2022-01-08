@@ -25,8 +25,8 @@ export default function SingleDestinationPage({destination}) {
                         <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
                     </div>
 
-                    <div className="flex flex-row mb-3r">
-                        <div className="w-2/3">
+                    <div className="flex flex-col md:flex-row mb-3r">
+                        <div className="w-full md:w-1/2 lg:w-2/3 mb-3r">
                             <h2>Destination Details:</h2>
                             <p>{destination.description}</p>
 
@@ -48,7 +48,7 @@ export default function SingleDestinationPage({destination}) {
                             </ul>
                             
                         </div>
-                        <div className="w-1/3 bg-white p-1r rounded-1r">
+                        <div className="w-full md:w-1/2 lg:w-1/3 bg-white p-1r rounded-1r">
                            <BookingCalendar bookingDestination={destination}/>
                         </div>
                     </div>

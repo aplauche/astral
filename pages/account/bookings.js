@@ -22,12 +22,14 @@ const BookingsPage = () => {
         })()
     }, [])
 
-
+    const handleDelete = (id) => {
+        console.log(id);
+    }
 
     return (
         <Layout title="My Bookings">
         <section className="container my-32">
-            <h1>My Bookings</h1>
+            <h1 className='text-center'>My Bookings</h1>
             {loading ? 
                 <div>
                     <p>Loading...</p>
@@ -35,19 +37,32 @@ const BookingsPage = () => {
             : 
             <div>
                 <CustomTable 
-                    titles={['Check In Date', 'Check Out Date', 'Total Days', 'Price']}
+                    columns={[
+                        {
+                            title: "Check In",
+                            selector: row => convertToLocal(new Date(row.checkInDate)).toDateString()
+                        },
+                        {
+                            title: "Check Out",
+                            selector: row => convertToLocal(new Date(row.checkOutDate)).toDateString()
+                        },
+                        {
+                            title: "Days Of Stay",
+                            selector: row => row.daysOfStay
+                        },
+                        {
+                            title: "Total Billed",
+                            selector: row => `$${row.amountPaid * row.daysOfStay}`
+                        },
+                        {
+                            title: "Actions",
+                            selector: row => (
+                                <button onClick={() => handleDelete(row._id)}>View Details</button>
+                            )
+                        },
+                    ]}
                     rows={bookings}
                 />
-                {bookings.map(booking => {
-                    // const start = new Date(booking.checkInDate)
-                    const start = convertToLocal(new Date(booking.checkInDate))
-                    const end = convertToLocal(new Date(booking.checkOutDate))
-                    return (
-                        <p key={booking._id}>{start.toDateString()} - {end.toDateString()}</p>
-                    )
-                   
-                    // <p>{new Date(booking.checkInDate.toString())} - {booking.checkOutDate}</p>
-                })}
             </div>
             }
         </section>

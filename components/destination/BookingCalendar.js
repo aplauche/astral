@@ -110,7 +110,10 @@ const BookingCalendar = ({bookingDestination}) => {
 
 
     return (
-        <>
+        <div className='text-center p1-r md:p-2r'>
+
+            <h3>Choose your dates:</h3>
+
            <ReactDatePicker 
                 className="w-100"
                 selected={checkInDate}
@@ -127,12 +130,12 @@ const BookingCalendar = ({bookingDestination}) => {
                 <p>Selected Dates Not Available</p>
             }
             {!loading && checkInDate && checkOutDate && validRange && !session?.user &&
-                <button onClick={() => signIn()}>Log in to book!</button>
+                <button className="button-primary" onClick={() => signIn()}>Log in to book!</button>
             } 
             {!loading && checkInDate && checkOutDate && validRange && session?.user &&
-                <button onClick={newBookingHandler}>Book Now!</button>
+                <button className="button-primary w-full" onClick={newBookingHandler}>Book Now!</button>
             }
-        </>
+        </div>
     )
 }
 
