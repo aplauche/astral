@@ -7,6 +7,7 @@ import Destination from "../../models/destination";
 import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import { signIn, useSession } from "next-auth/react";
+import { convertToUTC } from "../../utils/timezoneCorrections";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
@@ -15,6 +16,7 @@ export default function SingleDestinationPage({destination}) {
 
     const [checkInDate, setCheckInDate] = useState(new Date());
     const [checkOutDate, setCheckOutDate] = useState(null);
+    const [excludedDates, setExcludedDates] = useState([]);
     const [daysOfStay, setDaysOfStay] = useState(1)
     const {data: session, status} = useSession()
 
@@ -31,16 +33,38 @@ export default function SingleDestinationPage({destination}) {
 
     const onDateChange = (dates) => {
         const [start, end] = dates;
-        // if(start){
-        //     start.setHours(0, 0, 0, 0);
-        // } 
-        // if(end){
-        //     end.setHours(0, 0, 0, 0);
+        if(start){
+            start.setHours(15, 0, 0, 0);
+            // setCheckInDate(convertToUTC(start));
 
-        // }
+        } 
+        if(end){
+            end.setHours(15, 0, 0, 0);
+            // setCheckOutDate(convertToUTC(end));
+        }
         setCheckInDate(start);
         setCheckOutDate(end);
+        
+        // console.log(start)
+        // console.log(start.getTimezoneOffset())
+        // console.log(start.getTime())
+        // console.log(new Date((start.getTime() + (start.getTimezoneOffset() * 60000))))
+
     };
+
+    useEffect(()=>{
+        (async() => {
+
+            const {data} = await axios.get(`/api/bookings/check-booked-dates?destinationId=${destination._id}`)
+
+            const exclude = data.bookedDates.map(day => {
+                return new Date(day)
+            })
+
+            setExcludedDates(exclude)
+
+        })()
+    }, [])
 
     const newBookingHandler = async() => {
 
@@ -58,7 +82,6 @@ export default function SingleDestinationPage({destination}) {
         }
 
         try {
-            console.log(bookingData)
             const config = {
                 headers: {
                     'Content-Type': 'application/json'
@@ -113,7 +136,7 @@ export default function SingleDestinationPage({destination}) {
                                 startDate={checkInDate}
                                 endDate={checkOutDate}
                                 minDate={new Date()}
-                                // excludeDates={excludedDates}
+                                excludeDates={excludedDates}
                                 selectsRange
                                 inline
                             />
