@@ -41,6 +41,54 @@ export const getAllBookingsByDestination = catchAsync(async (req,res) => {
         
 })
 
+
+/* GET
+------- Check Booking available => /api/bookings/check-valid-dates -------
+*/ 
+
+export const checkBookingAvailable = catchAsync(async (req,res) => {
+
+    let {
+        destinationId,
+        checkInDate,
+        checkOutDate
+    } = req.query
+
+    checkInDate = new Date(checkInDate)
+    checkOutDate = new Date(checkOutDate)
+
+    // Find all bookings
+    const bookings = await Booking.find({
+        destination: destinationId,
+        $and: [
+            {
+                checkInDate: {
+                    $lte: checkOutDate
+                },
+            },
+            {
+                checkOutDate: {
+                    $gte: checkInDate
+                },
+            }
+        ]
+    })
+
+    let isAvailable;
+
+    if(bookings && bookings.length === 0){
+        isAvailable = true
+    } else {
+        isAvailable = false
+    }
+
+    res.status(200).json({
+        success: true,
+        isAvailable
+    })
+        
+})
+
 /* GET
 ------- Get all bookings => /api/bookings -------
 */ 

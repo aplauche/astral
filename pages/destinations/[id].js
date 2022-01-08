@@ -11,89 +11,9 @@ import { convertToUTC } from "../../utils/timezoneCorrections";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
+import BookingCalendar from "../../components/destination/BookingCalendar";
 
 export default function SingleDestinationPage({destination}) {
-
-    const [checkInDate, setCheckInDate] = useState(new Date());
-    const [checkOutDate, setCheckOutDate] = useState(null);
-    const [excludedDates, setExcludedDates] = useState([]);
-    const [daysOfStay, setDaysOfStay] = useState(1)
-    const {data: session, status} = useSession()
-
-    const router = useRouter()
-
-    useEffect(()=> {
-
-        if(checkInDate && checkOutDate){
-            const days = Math.floor(((new Date(checkOutDate) - new Date(checkInDate)) / 86400000) + 1)
-            setDaysOfStay(days)
-        }
-
-    }, [checkInDate, checkOutDate])
-
-    const onDateChange = (dates) => {
-        const [start, end] = dates;
-        if(start){
-            start.setHours(15, 0, 0, 0);
-            // setCheckInDate(convertToUTC(start));
-
-        } 
-        if(end){
-            end.setHours(15, 0, 0, 0);
-            // setCheckOutDate(convertToUTC(end));
-        }
-        setCheckInDate(start);
-        setCheckOutDate(end);
-        
-        // console.log(start)
-        // console.log(start.getTimezoneOffset())
-        // console.log(start.getTime())
-        // console.log(new Date((start.getTime() + (start.getTimezoneOffset() * 60000))))
-
-    };
-
-    useEffect(()=>{
-        (async() => {
-
-            const {data} = await axios.get(`/api/bookings/check-booked-dates?destinationId=${destination._id}`)
-
-            const exclude = data.bookedDates.map(day => {
-                return new Date(day)
-            })
-
-            setExcludedDates(exclude)
-
-        })()
-    }, [])
-
-    const newBookingHandler = async() => {
-
-        const bookingData = {
-            destination: router.query.id,
-            checkInDate: checkInDate,
-            checkOutDate: checkOutDate,
-            daysOfStay,
-            amountPaid: 100,
-            paymentInfo: {
-                id: 'temp_stripe_id',
-                status: 'temp_stripe_status'
-            },
-            paidAt: Date.now()
-        }
-
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            const {data} = await axios.post('/api/bookings', bookingData, config)
-            console.log(data)
-        } catch (error) {
-            console.log(error.response);
-        }
-
-    }
 
     return (
         <>
@@ -129,23 +49,7 @@ export default function SingleDestinationPage({destination}) {
                             
                         </div>
                         <div className="w-1/3 bg-white p-1r rounded-1r">
-                            <ReactDatePicker 
-                                className="w-100"
-                                selected={checkInDate}
-                                onChange={onDateChange}
-                                startDate={checkInDate}
-                                endDate={checkOutDate}
-                                minDate={new Date()}
-                                excludeDates={excludedDates}
-                                selectsRange
-                                inline
-                            />
-                            {checkInDate && checkOutDate && session?.user &&
-                                <button onClick={newBookingHandler}>Book Now!</button>
-                            }
-                            {checkInDate && checkOutDate && !session?.user &&
-                                <button onClick={() => signIn()}>Log in to book!</button>
-                            }
+                           <BookingCalendar bookingDestination={destination}/>
                         </div>
                     </div>
 
