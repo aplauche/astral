@@ -86,7 +86,7 @@ const BookingCalendar = ({bookingDestination}) => {
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
             daysOfStay,
-            amountPaid: 100,
+            amountPaid: Number(destination.pricePerNight * daysOfStay),
             paymentInfo: {
                 id: 'temp_stripe_id',
                 status: 'temp_stripe_status'
@@ -101,7 +101,7 @@ const BookingCalendar = ({bookingDestination}) => {
                 }
             }
             const {data} = await axios.post('/api/bookings', bookingData, config)
-            // router.push('/account/bookings')
+            router.push('/bookings')
         } catch (error) {
             console.log(error.response);
         }
@@ -127,10 +127,10 @@ const BookingCalendar = ({bookingDestination}) => {
             />
 
             {!loading && checkInDate && checkOutDate && !validRange &&
-                <p>Selected Dates Not Available</p>
+                <p className='text-center'>Selected Dates Not Available</p>
             }
             {!loading && checkInDate && checkOutDate && validRange && !session?.user &&
-                <button className="button-primary" onClick={() => signIn()}>Log in to book!</button>
+                <button className="button-primary w-full" onClick={() => signIn()}>Log in to book!</button>
             } 
             {!loading && checkInDate && checkOutDate && validRange && session?.user &&
                 <button className="button-primary w-full" onClick={newBookingHandler}>Book Now!</button>

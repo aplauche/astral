@@ -2,16 +2,12 @@
 import Layout from "../../components/layout/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import absoluteUrl from "next-absolute-url";
 import Image from "next/image";
 import Link from "next/link";
-import ReactDatePicker from "react-datepicker";
-import { signIn, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { convertToLocal } from "../../utils/timezoneCorrections";
 
-import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
-import BookingCalendar from "../../components/destination/BookingCalendar";
 
 export default function SingleBookingPage() {
 
@@ -74,14 +70,21 @@ export default function SingleBookingPage() {
 }
 
 
-// export async function getServerSideProps(context) {
 
-//     dbConnect()
+export async function getServerSideProps(context){
 
-//     const result = await Booking.findById(context.params.id)
-//     const booking = result.toObject()
-//     booking._id = booking._id.toString()
-//     booking.createdAt = null
-  
-//     return { props: { booking: booking } }
-// }
+    const session = await getSession({req: context.req})
+    
+    if(!session){
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {}
+    }
+}

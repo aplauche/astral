@@ -99,6 +99,14 @@ export const getAllBookingsByUser = catchAsync(async (req,res) => {
     const user = req.user
 
     let bookings = await Booking.find({user: user._id})
+    .populate({
+        path: 'destination',
+        select: 'name pricePerNight'
+    })
+    .populate({
+        path: 'user',
+        select: 'name email'
+    })
 
     res.status(200).json({
         success: true,
