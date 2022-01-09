@@ -4,6 +4,8 @@ import axios from 'axios'
 import { convertToLocal } from '../../utils/timezoneCorrections'
 import Layout from '../../components/layout/Layout'
 import CustomTable from '../../components/CustomTable'
+import Link from 'next/link'
+
 
 const BookingsPage = () => {
 
@@ -55,9 +57,17 @@ const BookingsPage = () => {
                             selector: row => `$${row.amountPaid * row.daysOfStay}`
                         },
                         {
-                            title: "Actions",
+                            title: "",
                             selector: row => (
-                                <button onClick={() => handleDelete(row._id)}>View Details</button>
+                                <Link href={`/bookings/${row._id}`}>
+                                    <a>View Details</a>
+                                </Link>
+                            )
+                        },
+                        {
+                            title: "",
+                            selector: row => (
+                                <button className="underline">Download Invoice</button>
                             )
                         },
                     ]}

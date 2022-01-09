@@ -2,6 +2,7 @@ import Booking from "../models/booking";
 import catchAsync from '../middlewares/catchAsyncErrors'
 import Moment from 'moment'
 import { extendMoment } from 'moment-range';
+import ErrorHandler from "../utils/errorHandler";
 
 const moment = extendMoment(Moment)
 
@@ -90,7 +91,7 @@ export const checkBookingAvailable = catchAsync(async (req,res) => {
 })
 
 /* GET
-------- Get all bookings => /api/bookings -------
+------- Get all bookings by user => /api/bookings -------
 */ 
 
 export const getAllBookingsByUser = catchAsync(async (req,res) => {
@@ -102,6 +103,38 @@ export const getAllBookingsByUser = catchAsync(async (req,res) => {
     res.status(200).json({
         success: true,
         bookings
+    })
+        
+})
+
+
+/* GET
+------- Get booking by ID => /api/bookings/:id -------
+*/ 
+
+export const getBookingById = catchAsync(async (req,res) => {
+
+    const user = req.user
+
+    console.log(req.query)
+
+    let booking = await Booking.findById(req.query.id)
+        .populate({
+            path: 'destination',
+            select: 'name pricePerNight'
+        })
+        .populate({
+            path: 'user',
+            select: 'name email'
+        })
+
+    if(booking.user !== req.user._id){
+        new ErrorHandler("You do not have permission to view this page", 403)
+    }
+
+    res.status(200).json({
+        success: true,
+        booking
     })
         
 })

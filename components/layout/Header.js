@@ -22,7 +22,7 @@ const Header = () => {
                     {userHover && 
                         <ul className='absolute bg-black text-white w-32 right-0 p-1r text-right'>
                             <li className='py-0p5r'>
-                                <Link href="/account/bookings">
+                                <Link href="/bookings">
                                     <a className='text-white text-center'>My Bookings</a>
                                 </Link>
                             </li>
