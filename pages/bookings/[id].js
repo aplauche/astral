@@ -39,12 +39,15 @@ export default function SingleBookingPage() {
                     : 
                     <>
 
+                        
+                        <h1>{booking.destination.name}</h1>
                         <div style= {{height: "25vw", maxHeight: 450}} className="w-full relative mb-2r">
                             <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
                         </div>
-                        <h1>{booking.destination.name}</h1>
                         <p><strong>{convertToLocal(new Date(booking.checkInDate)).toDateString()} - {convertToLocal(new Date(booking.checkOutDate)).toDateString()}</strong></p>
                         <hr />   
+
+                  
                         <p><strong>Guest Name:</strong> {booking.user.name}</p>
                         <p><strong>Guest Email:</strong> {booking.user.email}</p>
                         <p><strong>Length of Stay:</strong> {booking.daysOfStay} night(s)</p>

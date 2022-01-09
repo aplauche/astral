@@ -83,14 +83,17 @@ export default function Home({}) {
           <HomeHero />
           <div style={{marginTop: -48}} className="container">
             <div className='bg-white py-3r rounded-1r mb-3r flex flex-col items-center'>
-              <p>Browse by sign</p>
+              <h4 className='font-mono'>Browse by sign</h4>
+              <div className='h-0.5 bg-light w-32 mb-1r'></div>
               <select value={signFilter} onChange={e => setSignFilter(e.target.value)}>
                 <option value="">Any</option>
                 <option value="Taurus">Taurus</option>
                 <option value="Leo">Leo</option>
                 <option value="Gemini">Gemini</option>
               </select>
-              <p>Browse by benefits</p>
+              <div className='h-12'></div>
+              <h4 className='font-mono'>Browse by benefits</h4>
+              <div className='h-0.5 bg-light w-32 mb-1r'></div>
               {benefits.map((benefit, index)=> (
                 <div key={benefit}>
                 <input

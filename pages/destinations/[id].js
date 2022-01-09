@@ -1,16 +1,13 @@
 import Layout from "../../components/layout/Layout";
 import { useEffect, useState } from "react";
 import dbConnect from "../../utils/dbConnect";
-import axios from "axios";
-import absoluteUrl from "next-absolute-url";
+
 import Destination from "../../models/destination";
 import Image from "next/image";
-import ReactDatePicker from "react-datepicker";
-import { signIn, useSession } from "next-auth/react";
-import { convertToUTC } from "../../utils/timezoneCorrections";
+import Link from "next/link";
 
-import "react-datepicker/dist/react-datepicker.css";
-import { useRouter } from "next/router";
+
+
 import BookingCalendar from "../../components/destination/BookingCalendar";
 
 export default function SingleDestinationPage({destination}) {
@@ -27,10 +24,10 @@ export default function SingleDestinationPage({destination}) {
 
                     <div className="flex flex-col md:flex-row mb-3r">
                         <div className="w-full md:w-1/2 lg:w-2/3 mb-3r">
-                            <h2>Destination Details:</h2>
+                            <h3 className="accent-line">Destination Details:</h3>
                             <p>{destination.description}</p>
 
-                            <h2>Recommended For:</h2>
+                            <h3 className="accent-line mt-3r">Recommended For:</h3>
 
                             <ul>
                                 {destination.signs.map(sign => (
@@ -39,7 +36,7 @@ export default function SingleDestinationPage({destination}) {
                             </ul>
 
 
-                            <h2>Benefits:</h2>
+                            <h3 className="accent-line  mt-3r">Benefits:</h3>
 
                             <ul>
                                 {destination.benefits.map(benefit => (
@@ -54,6 +51,10 @@ export default function SingleDestinationPage({destination}) {
                     </div>
 
                     <hr />
+
+                    <Link href="/" >
+                        <a className="button-pill mt-2r">Back to all destinations</a>
+                    </Link>
 
                 </article>
  

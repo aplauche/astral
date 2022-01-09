@@ -17,28 +17,28 @@
       overflow-x: hidden;
   }
   
-  h1, h2, h3 {
+  h1, h2,  {
       @apply font-title;
   }
 
-  h4, h5, h6 {
-      @apply font-body;
+  h3, h4, h5, h6 {
+      @apply font-mono;
   }
   
   h1 {
-      @apply text-5xl mb-8 font-bold;
+      @apply text-5xl mb-8 font-thin tracking-widest;
   }
   h2 {
       @apply text-4xl font-bold mb-5;
   }
   h3 {
-      @apply text-3xl mb-5;
+      @apply text-2xl mb-5;
   }
   h4 {
-      @apply text-xl mb-5 font-bold;
+      @apply text-xl mb-5 ;
   }
   h5 {
-      @apply text-lg mb-5 font-bold;
+      @apply text-lg mb-5 ;
   }
   h6 {
       @apply text-lg mb-5;
@@ -58,6 +58,13 @@
 
   main img {
     @apply mb-8 block;
+  }
+
+  .accent-line::after {
+    content: "";
+    transform: translateY(100%);
+    height: 1px;
+    @apply w-32 bg-dark top-0 block mt-6
   }
 
   
@@ -106,7 +113,7 @@ th, td {
 /* BUTTONS */
 
   .button-primary {
-      @apply py-3 px-2r text-white font-bold uppercase bg-black text-center ;
+      @apply py-3 px-2r text-white font-light uppercase bg-black text-center tracking-widest;
       margin-top: 32px;
       transition: all 0.5s ease;
       text-decoration: none;
@@ -116,6 +123,12 @@ th, td {
           transition: all 0.5s ease;
           @apply text-black;
       }
+  }
+
+  .button-pill {
+      border-width: 1px;
+      text-decoration: none;
+      @apply border-black border-solid rounded-2r py-0p5r px-3r inline-block hover:bg-black hover:text-white;
   }
 
 }

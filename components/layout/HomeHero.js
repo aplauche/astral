@@ -11,8 +11,8 @@ const HomeHero = () => {
             }}
             className='w-full text-white flex flex-col items-center justify-center'
         >
-            <h1 className='text-white text-center tracking-widest'>Destinations for Astral Alignment</h1>
-            <p className='tracking-widest'>EXPLORE NOW</p>
+            <h1 className='text-white text-center tracking-widest font-thin'>Destinations for Astral Alignment</h1>
+            <p className='tracking-widest font-bold'>EXPLORE NOW</p>
         </div>
     )
 }

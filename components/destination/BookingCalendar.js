@@ -112,7 +112,7 @@ const BookingCalendar = ({bookingDestination}) => {
     return (
         <div className='text-center p1-r md:p-2r'>
 
-            <h3>Choose your dates:</h3>
+            <h4>Choose your dates:</h4>
 
            <ReactDatePicker 
                 className="w-100"

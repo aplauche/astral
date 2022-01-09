@@ -9,8 +9,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      title: ['"ClashDisplay"', 'serif'],
-      body: ['"Satoshi"', 'sans-serif'],
+      title: ['"Playfair Display"', 'serif'],
+      mono: ['"IBM Plex Mono"', 'monospace'],
+      body: ['"Montserrat"', 'sans-serif'],
     },
     extend: {
       spacing: {
