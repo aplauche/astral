@@ -65,7 +65,7 @@ const RegisterPage = () => {
                     type="submit"
                     disabled={loading ? true : false}
                     >
-                        {loading ? <ButtonLoader /> : "REGISTER"}
+                        {loading ? "Working..." : "REGISTER"}
                     </button>                
                     
                 </form>

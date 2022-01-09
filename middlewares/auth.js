@@ -14,3 +14,12 @@ export const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
     next();
 
 })
+
+export const isAdmin = catchAsyncErrors(async (req,res,next)=> {
+
+    if (req.user.role !== 'admin') {
+        return next(new ErrorHandler('Only Admins can access this resource', 401));
+    }
+
+    next();
+})

@@ -43,7 +43,7 @@ const LoginPage = () => {
                     type="submit"
                     disabled={loading ? true : false}
                     >
-                        {loading ? <ButtonLoader /> : "Login"}
+                        {loading ? "working..." : "Login"}
                     </button>                
                 </form>
                 <div className='text-center my-1r'>

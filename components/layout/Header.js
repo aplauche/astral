@@ -20,7 +20,17 @@ const Header = () => {
                 <div onMouseLeave={() => setUserHover(false)}    className='relative h-full'>
                     <button onMouseOver={() => setUserHover(true)} className='text-white'>{session.user.name}</button>
                     {userHover && 
-                        <ul className='absolute bg-black text-white w-32 right-0 p-1r text-right'>
+                        <ul className='absolute bg-black text-white w-64 right-0 p-1r text-right'>
+                            {status == 'authenticated' && session.user && session.user.role === 'admin' && (
+                                <>
+                                <li className='py-0p5r'>
+                                    <Link href="/admin/destinations">
+                                        <a className='text-white text-center'>Manage Destinations</a>
+                                    </Link>
+                                </li>
+                                <hr className='m-0'/>
+                                </>
+                            )}
                             <li className='py-0p5r'>
                                 <Link href="/bookings">
                                     <a className='text-white text-center'>My Bookings</a>
@@ -36,7 +46,7 @@ const Header = () => {
             )}
             {status == 'unauthenticated' && (
                 <>
-                    <button class="text-white" onClick={() => signIn()}>Sign In</button>
+                    <button className="text-white" onClick={() => signIn()}>Sign In</button>
                 </>
             )}
             </div>
