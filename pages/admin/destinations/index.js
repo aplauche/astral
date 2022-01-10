@@ -4,6 +4,7 @@ import axios from 'axios'
 import Layout from '../../../components/layout/Layout'
 import CustomTable from '../../../components/CustomTable'
 import Link from 'next/link'
+import Image from 'next/image'
 
 
 
@@ -40,14 +41,23 @@ const AdminDestinationsPage = () => {
                     columns={[
                         {
                             title: "Destination",
+                            selector: row => 
+                            (
+                                <div style= {{height: 40, width:40}} className="relative ">
+                                    <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
+                                </div>
+                            )
+                        },
+                        {
+                            title: "Name",
                             selector: row => row.name
                         },
                         {
-                            title: "pricePerNight",
+                            title: "Price",
                             selector: row => row.pricePerNight
                         },
                         {
-                            title: "Recommended Signs",
+                            title: "Signs",
                             selector: row => row.signs.join(', ')
                         },
                         {
@@ -58,7 +68,7 @@ const AdminDestinationsPage = () => {
                             title: "",
                             selector: row => (
                                 <>
-                                <Link href={`/bookings/${row._id}`}>
+                                <Link href={`/admin/destinations/${row._id}`}>
                                     <a className="inline-block mr-4 my-4">Edit</a>
                                 </Link>
                                 <button onClick={() => console.log('delete')} className="underline">Delete</button>
