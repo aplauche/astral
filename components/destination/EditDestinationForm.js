@@ -56,9 +56,20 @@ const EditDestinationForm = ({data}) => {
 
     useEffect(() => {
         if(data){
+            console.log(data);
+            const signsSet = new Set(data.signs)
+            const benefitsSet = new Set(data.benefits)
             setName(data.name)
             setDescription(data.description)
+            setPrice(data.price)
+            setGuestCapacity(data.guestCapacity)
+            setSigns(signsSet)
+            setBenefits(benefitsSet)
         }
+
+        setTimeout(()=>{
+            console.log(signs);
+        },2000)
 
     }, [data])
 
