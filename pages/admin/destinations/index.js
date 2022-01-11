@@ -31,6 +31,9 @@ const AdminDestinationsPage = () => {
         <Layout title="Manage Destinations">
         <section className="container my-32">
             <h1 className='text-center'>Manage Destinations</h1>
+            <Link href="/admin/destinations/create">
+                <a className="pill-button">Create New</a>
+            </Link>
             {loading ? 
                 <div>
                     <p>Loading...</p>

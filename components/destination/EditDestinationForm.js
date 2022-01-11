@@ -2,7 +2,8 @@ import Router, { useRouter } from 'next/router'
 import React, {useState, useEffect} from 'react'
 import benefitsData from '../../data/benefits'
 import signsData from '../../data/signs'
-
+import Image from 'next/image'
+import axios from 'axios'
 
 const EditDestinationForm = ({data}) => {
 
@@ -35,16 +36,42 @@ const EditDestinationForm = ({data}) => {
         }
     }
 
+    const handleFileUpload = (e) => {
+        // setImages([...e.target.files])
+
+        const files = Array.from(e.target.files)
+
+        files.forEach(file => {
+            const reader = new FileReader()
+            reader.onload = () => {
+                if(reader.readyState == 2){
+                    // set state provides the old state so we can simple spread and add on to it
+                    setImages(oldArray => [...oldArray, reader.result])
+                    setImagesPreview(oldArray => [...oldArray, reader.result])
+                }
+            }
+            reader.readAsDataURL(file)
+        })
+    }
+
     useEffect(() => {
         if(data){
             setName(data.name)
             setDescription(data.description)
-
         }
 
     }, [data])
 
-    const handleSubmit = async () => {
+    // useEffect(() => {
+    //     if(images.length < 1) return;
+    //     const imageUrls = []
+    //     images.forEach(image => imageUrls.push(URL.createObjectURL(image)))
+    //     setImagesPreview(imageUrls)
+    // }, [images])
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault()
 
         const body = {
             name,
@@ -52,20 +79,20 @@ const EditDestinationForm = ({data}) => {
             description,
             guestCapacity,
             signs: [...signs],
-            benefits: [...benefits]
-
+            benefits: [...benefits],
+            images
         }
 
-        if(data._id){
-            let link = `/api/admin/destinations/${data._id}`
-            const {data} = await axios.put(link, body)
-            router.push('/admin/destinations/')
+        // if(data){
+        //     let link = `/api/admin/destinations/${data._id}`
+        //     const {data} = await axios.put(link, body)
+        //     router.push('/admin/destinations/')
 
-        } else {
-            let link = `/api/admin/destinations`
+        // } else {
+            let link = `/api/destinations`
             const {data} = await axios.post(link, body)
             router.push('/admin/destinations')
-        }
+        // }
 
     }
 
@@ -141,7 +168,15 @@ const EditDestinationForm = ({data}) => {
                 <label htmlFor={`custom-checkbox-${index}`}>{benefit}</label>
                 </div>
             ))}
-            
+
+            <input type="file" multiple accept="image/*" onChange={handleFileUpload} />
+            {imagesPreview.map(imgUrl => (
+                <div key={imgUrl} style= {{height: 40, width:40}} className="relative">
+                    <Image className="w-full" src={imgUrl} layout="fill" objectFit="cover"/>
+                </div>
+            ))}
+
+            <button onClick={handleSubmit}>Create</button>
         </form>
     )
 }

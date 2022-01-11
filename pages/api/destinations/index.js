@@ -2,6 +2,7 @@ import nc from 'next-connect'
 import dbConnect from '../../../utils/dbConnect';
 import { getAllDestinations, createDestination } from "../../../controllers/destinationController";
 import onError from '../../../middlewares/errors'
+import { isAuthenticatedUser } from '../../../middlewares/auth';
 
 // const handler = nc({onError});
 const handler = nc({onError});
@@ -12,7 +13,7 @@ handler
     .get(getAllDestinations)
     
 handler
-    // .use(isAuthenticatedUser, authorizedRoles('admin'))
+    .use(isAuthenticatedUser)
     .post(createDestination)
 
 export default handler
