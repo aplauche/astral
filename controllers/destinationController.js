@@ -3,6 +3,7 @@ import APICallModifier from "../utils/APICallModifier";
 import catchAsync from '../middlewares/catchAsyncErrors'
 import cloudinary from 'cloudinary'
 import ErrorHandler from "../utils/errorHandler";
+import {isDataURL} from '../utils/helpers'
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -11,10 +12,6 @@ cloudinary.config({
 })
 
 
-function isDataURL(s) {
-    return !!s.match(isDataURL.regex);
-}
-isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
 
 
 /* GET
@@ -101,8 +98,6 @@ export const updateDestination = catchAsync(async (req,res, next) => {
     if(!destination){
         next(new ErrorHandler('Destination does not exist', 404))
     }
-
-    console.log(req.body)
 
     if(req.body.images){
         let imagesLinks = []

@@ -62,6 +62,17 @@ const EditDestinationForm = ({data, id}) => {
 
     }
 
+
+    const handleDeleteImage = (imgToDelete) =>{
+        setImages(images.filter(img => {
+            return img !== imgToDelete
+        }))
+        setImagesPreview(imagesPreview.filter(img => {
+            return img !== imgToDelete
+        }))
+    }
+
+
     // Load in data of existing location if editing
     useEffect(() => {
         if(data){
@@ -200,6 +211,11 @@ const EditDestinationForm = ({data, id}) => {
             {imagesPreview.map(imgUrl => (
                 <div key={imgUrl} style= {{height: 40, width:40}} className="relative">
                     <Image className="w-full" src={imgUrl} layout="fill" objectFit="cover"/>
+                    <div className='absolute top-0 right-0'
+                        onClick={()=>handleDeleteImage(imgUrl)}
+                    >
+                    X
+                    </div>
                 </div>
             ))}
 
