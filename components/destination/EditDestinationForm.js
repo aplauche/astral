@@ -5,7 +5,7 @@ import signsData from '../../data/signs'
 import Image from 'next/image'
 import axios from 'axios'
 
-const EditDestinationForm = ({data}) => {
+const EditDestinationForm = ({data, id}) => {
 
     const router = useRouter()
 
@@ -13,33 +13,40 @@ const EditDestinationForm = ({data}) => {
     const [price, setPrice] = useState(100)
     const [description, setDescription] = useState('')
     const [guestCapacity, setGuestCapacity] = useState(1)
-    const [signs, setSigns] = useState(new Set())
-    const [benefits, setBenefits] = useState(new Set())
-
+    const [signs, setSigns] = useState([])
+    const [benefits, setBenefits] = useState([])
 
     const [images, setImages] = useState([])
-    const [oldImages, setOldImages] = useState([])
+    // const [oldImages, setOldImages] = useState([])
     const [imagesPreview, setImagesPreview] = useState([])
 
     const handleBenefitsChange = (benefit) => {
-        if(benefits.has(benefit)){
-            benefits.delete(benefit)
+        const set = new Set(benefits)
+        if(set.has(benefit)){
+            set.delete(benefit)
         }else {
-            benefits.add(benefit)
+            set.add(benefit)
         }
+        setBenefits([...set])
     }
+
     const handleSignsChange = (sign) => {
-        if(signs.has(sign)){
-            signs.delete(sign)
+        const set = new Set(signs)
+        if(set.has(sign)){
+            set.delete(sign)
         }else {
-            signs.add(sign)
+            set.add(sign)
         }
+        setSigns([...set])
     }
 
     const handleFileUpload = (e) => {
-        // setImages([...e.target.files])
 
         const files = Array.from(e.target.files)
+
+        // setImages([])
+        // setOldImages([])
+        // setImagesPreview([])
 
         files.forEach(file => {
             const reader = new FileReader()
@@ -52,24 +59,29 @@ const EditDestinationForm = ({data}) => {
             }
             reader.readAsDataURL(file)
         })
+
     }
 
+    // Load in data of existing location if editing
     useEffect(() => {
         if(data){
-            console.log(data);
-            const signsSet = new Set(data.signs)
-            const benefitsSet = new Set(data.benefits)
             setName(data.name)
             setDescription(data.description)
             setPrice(data.price)
             setGuestCapacity(data.guestCapacity)
-            setSigns(signsSet)
-            setBenefits(benefitsSet)
-        }
+            setSigns(data.signs)
+            setBenefits(data.benefits)
 
-        setTimeout(()=>{
-            console.log(signs);
-        },2000)
+            let imageUrls = []
+
+            data.images.forEach(img => {
+                imageUrls.push(img.url)
+            })
+
+            setImages(imageUrls)
+            // setOldImages(imageUrls)
+            setImagesPreview(imageUrls)
+        }
 
     }, [data])
 
@@ -91,19 +103,23 @@ const EditDestinationForm = ({data}) => {
             guestCapacity,
             signs: [...signs],
             benefits: [...benefits],
-            images
+            
         }
 
-        // if(data){
-        //     let link = `/api/admin/destinations/${data._id}`
-        //     const {data} = await axios.put(link, body)
-        //     router.push('/admin/destinations/')
+        if(images.length > 0){
+            body.images = images
+        }
 
-        // } else {
+        if(data){
+            let link = `/api/destinations/${id}`
+            const {data} = await axios.put(link, body)
+            router.push('/admin/destinations/')
+
+        } else {
             let link = `/api/destinations`
             const {data} = await axios.post(link, body)
             router.push('/admin/destinations')
-        // }
+        }
 
     }
 
@@ -158,7 +174,7 @@ const EditDestinationForm = ({data}) => {
                     id={`custom-checkbox-${index}`}
                     name={sign}
                     value={sign}
-                    defaultChecked={signs.has(sign)}
+                    checked={signs.includes(sign)}
                     onChange={() => handleSignsChange(sign)}
                   />
                 <label htmlFor={`custom-checkbox-${index}`}>{sign}</label>
@@ -173,7 +189,7 @@ const EditDestinationForm = ({data}) => {
                     id={`custom-checkbox-${index}`}
                     name={benefit}
                     value={benefit}
-                    defaultChecked={benefits.has(benefit)}
+                    checked={benefits.includes(benefit)}
                     onChange={() => handleBenefitsChange(benefit)}
                   />
                 <label htmlFor={`custom-checkbox-${index}`}>{benefit}</label>

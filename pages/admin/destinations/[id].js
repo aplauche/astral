@@ -29,7 +29,7 @@ const EditDestinationPage = () => {
             <section className="container my-3r">
                 <h1>Edit Destination</h1>
                 {destinationData &&
-                    <EditDestinationForm data={destinationData} />
+                    <EditDestinationForm id={router.query.id} data={destinationData} />
                 }
             </section> 
         </Layout>
