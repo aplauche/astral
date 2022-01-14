@@ -144,3 +144,33 @@ export const updateDestination = catchAsync(async (req,res, next) => {
     })      
 
 })
+
+
+/* DELETE
+------- DELETE destination by ID => /api/destinations/:id -------
+*/ 
+
+export const deleteDestination =  catchAsync(async (req,res) => {
+
+    let destination = await Destination.findById(req.query.id)
+
+    if(!destination){
+        next(new ErrorHandler('Destination does not exist', 404))
+    }
+
+
+    // delete old images associated with room
+    for (let i = 0; i < destination.images.length; i++) {
+
+        await cloudinary.v2.uploader.destroy(destination.images[i].public_id)       
+
+    }
+
+    let result = await Destination.findByIdAndDelete(req.query.id)
+
+    res.status(200).json({
+        success: true,
+        result
+    })      
+
+})

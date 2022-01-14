@@ -5,13 +5,16 @@ import Layout from '../../../components/layout/Layout'
 import CustomTable from '../../../components/CustomTable'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 
 
 const AdminDestinationsPage = () => {
 
+    const router = useRouter()
     const [loading, setLoading] = useState(true)
     const [destinations, setDestinations] = useState([])
+    const [refresh, setRefresh] = useState(1)
 
     useEffect(()=>{
         (async ()=>{
@@ -23,8 +26,16 @@ const AdminDestinationsPage = () => {
             setLoading(false)
 
         })()
-    }, [])
+    }, [refresh])
 
+
+    const handleDelete = async(idToDelete) => {
+        const {success} = await axios.delete(`/api/destinations/${idToDelete}`)
+
+
+        setRefresh(refresh + 1)
+
+    }
     
 
     return (
@@ -32,7 +43,7 @@ const AdminDestinationsPage = () => {
         <section className="container my-32">
             <h1 className='text-center'>Manage Destinations</h1>
             <Link href="/admin/destinations/create">
-                <a className="pill-button">Create New</a>
+                <a className="button-pill text-center mb-2r  max-w-sm block mx-auto">Create New</a>
             </Link>
             {loading ? 
                 <div>
@@ -74,7 +85,7 @@ const AdminDestinationsPage = () => {
                                 <Link href={`/admin/destinations/${row._id}`}>
                                     <a className="inline-block mr-4 my-4">Edit</a>
                                 </Link>
-                                <button onClick={() => console.log('delete')} className="underline">Delete</button>
+                                <button onClick={() => handleDelete(row._id)} className="underline">Delete</button>
                                 </>
                             )
                         },

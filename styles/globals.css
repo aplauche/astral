@@ -131,4 +131,14 @@ th, td {
       @apply border-black border-solid rounded-2r py-0p5r px-3r inline-block hover:bg-black hover:text-white;
   }
 
+  .pill {
+    border-width: 1px;
+    text-decoration: none;
+    @apply border-dark border-solid rounded-2r py-1 px-2r inline-block ;
+
+    &.active {
+        @apply bg-dark text-white
+    }
+  }
+
 }

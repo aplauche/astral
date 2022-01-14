@@ -7,7 +7,7 @@ const CreateDestinationPage = () => {
     return (
         <Layout>
             <section className="container my-3r">
-                <h1>Create a New Destination</h1>
+                <h1 className='text-center'>Create a New Destination</h1>
                 <EditDestinationForm create={true} />
             </section>
             

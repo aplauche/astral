@@ -136,7 +136,7 @@ const EditDestinationForm = ({data, id}) => {
 
 
     return (
-        <form>
+        <form className='max-w-3xl mx-auto bg-white rounded-1r p-2r'>
             <input 
                 id="name"
                 name="name"
@@ -177,7 +177,7 @@ const EditDestinationForm = ({data, id}) => {
             required
             ></textarea>
 
-
+            <h3>Recommended Signs</h3>
             {signsData.map((sign, index)=> (
                 <div key={sign}>
                 <input
@@ -192,34 +192,52 @@ const EditDestinationForm = ({data, id}) => {
                 </div>
             ))}
 
+            <div className="h-8"></div>
 
+            <h3>Benefits</h3>
+            <div className="flex flex-wrap gap-2">
             {benefitsData.map((benefit, index)=> (
                 <div key={benefit}>
-                <input
-                    type="checkbox" 
-                    id={`custom-checkbox-${index}`}
-                    name={benefit}
-                    value={benefit}
-                    checked={benefits.includes(benefit)}
-                    onChange={() => handleBenefitsChange(benefit)}
-                  />
-                <label htmlFor={`custom-checkbox-${index}`}>{benefit}</label>
+                    <input
+                        type="checkbox" 
+                        id={`custom-checkbox-${benefit}`}
+                        className='hidden'
+                        name={benefit}
+                        value={benefit}
+                        checked={benefits.includes(benefit)}
+                        onChange={() => handleBenefitsChange(benefit)}
+                    />
+                    <label 
+                        className={`pill cursor-pointer ${benefits.includes(benefit) ? 'active': ''}`}
+                        htmlFor={`custom-checkbox-${benefit}`}
+                    >
+
+                        {benefit}
+                    </label>
                 </div>
             ))}
+            </div>
 
-            <input type="file" multiple accept="image/*" onChange={handleFileUpload} />
+            <label htmlFor="imageUpload" className='cursor-pointer mt-2r text-center block py-1r w-full border-dashed border-2 border-dark'>
+                + Add Images
+            </label>
+            <input id="imageUpload" className="hidden" type="file" multiple accept="image/*" onChange={handleFileUpload} />
+            <div className="flex flex-wrap gap-2 mt-4">
             {imagesPreview.map(imgUrl => (
-                <div key={imgUrl} style= {{height: 40, width:40}} className="relative">
+                <div key={imgUrl} style= {{height: 150, width: 150, border: "1px solid #ddd"}} className="relative">
                     <Image className="w-full" src={imgUrl} layout="fill" objectFit="cover"/>
-                    <div className='absolute top-0 right-0'
+                    <div className='cursor-pointer absolute top-0 right-0 text-white bg-dark w-8 h-8 flex justify-center items-center'
                         onClick={()=>handleDeleteImage(imgUrl)}
                     >
                     X
                     </div>
                 </div>
             ))}
+            </div>
 
-            <button onClick={handleSubmit}>Create</button>
+            <button className="button-pill mx-auto block mt-1r" onClick={handleSubmit}>
+                {data ? 'Save' : 'Create'}
+            </button>
         </form>
     )
 }

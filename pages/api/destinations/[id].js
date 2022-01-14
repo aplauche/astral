@@ -1,6 +1,6 @@
 import nc from 'next-connect'
 import dbConnect from '../../../utils/dbConnect';
-import { getDestinationById, updateDestination } from "../../../controllers/destinationController";
+import { getDestinationById, updateDestination, deleteDestination } from "../../../controllers/destinationController";
 import onError from '../../../middlewares/errors'
 import { isAuthenticatedUser, isAdmin } from '../../../middlewares/auth';
 
@@ -16,5 +16,8 @@ handler
 handler
     .use(isAuthenticatedUser, isAdmin)
     .put(updateDestination)
+handler
+    .use(isAuthenticatedUser, isAdmin)
+    .delete(deleteDestination)
 
 export default handler
