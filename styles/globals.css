@@ -119,7 +119,7 @@ th, td {
       text-decoration: none;
 
       &:hover {
-          background: linear-gradient(45deg, #D5E351 0%, #79CDD2 100%);
+          background-image: linear-gradient(to top, #dad4ec 0%, #dad4ec 1%, #f3e7e9 100%);
           transition: all 0.5s ease;
           @apply text-black;
       }
@@ -144,7 +144,10 @@ th, td {
   /* EFFECTS */
 
   .gradient-bg {
-      background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+      /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%); */
+      background-image: linear-gradient(to top, #dad4ec 0%, #dad4ec 1%, #f3e7e9 100%);
+      color: black !important;
+      stroke: black !important;
   }
 
 }

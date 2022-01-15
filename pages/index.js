@@ -92,7 +92,7 @@ export default function Home({}) {
               <div className='h-0.5 bg-light w-32 mb-1r'></div>
 
               <div className='max-w-xl'>
-                <SignsSelector onSignChange={handleSignsSelect} selectedSign={signFilter} />
+                <SignsSelector onSignChange={handleSignsSelect} selectedSigns={[signFilter]} />
               </div>
               
             </div>

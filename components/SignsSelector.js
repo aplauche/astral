@@ -2,7 +2,7 @@ import React from 'react'
 
 import signsData from '../data/signs.js'
 
-const SignsSelector = ({onSignChange, selectedSign}) => {
+const SignsSelector = ({onSignChange, selectedSigns}) => {
 
     return (
         <div className='flex flex-wrap w-full justify-center gap-2r px-2'>
@@ -13,7 +13,7 @@ const SignsSelector = ({onSignChange, selectedSign}) => {
                 id={`custom-checkbox-${sign.name}`}
                 name={sign.name}
                 value={sign.name}
-                defaultChecked={() => sign.name === selectedSign ? true : false}
+                defaultChecked={() => selectedSigns.includes(sign.name) ? true : false}
                 className='hidden'
                 />
             <label 
@@ -23,7 +23,7 @@ const SignsSelector = ({onSignChange, selectedSign}) => {
             >
                 <div 
                     style={{strokeWidth: 8, borderWidth: 1}} 
-                    className={`${sign.name === selectedSign ? 'gradient-bg stroke-white' : 'stroke-dark'} mb-2 mx-auto w-16 h-16 stroke-2 fill-transparent border-dark rounded-2r p-4 hover:bg-dark hover:stroke-white`}
+                    className={`${selectedSigns.includes(sign.name) ? 'gradient-bg stroke-white' : 'stroke-dark'} mb-2 mx-auto w-16 h-16 stroke-2 fill-transparent border-dark rounded-2r p-4 hover:bg-dark hover:stroke-white`}
                 >
                     {sign.output()}
                 </div>

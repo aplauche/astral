@@ -6,7 +6,7 @@ import Destination from "../../models/destination";
 import Image from "next/image";
 import Link from "next/link";
 
-
+import RecommendedSigns from "../../components/destination/RecommendedSigns";
 
 import BookingCalendar from "../../components/destination/BookingCalendar";
 
@@ -24,23 +24,18 @@ export default function SingleDestinationPage({destination}) {
 
                     <div className="flex flex-col md:flex-row mb-3r">
                         <div className="w-full md:w-1/2 lg:w-2/3 mb-3r">
-                            <h3 className="accent-line">Destination Details:</h3>
+                            <h2 className="accent-line font-mono font-normal">Destination Details:</h2>
                             <p>{destination.description}</p>
 
-                            <h3 className="accent-line mt-3r">Recommended For:</h3>
+                            <h3 className="accent-line mt-20">Recommended For:</h3>
 
-                            <ul>
-                                {destination.signs.map(sign => (
-                                    <li key={sign}>{sign}</li>
-                                ))}
-                            </ul>
-
+                            <RecommendedSigns signs={destination.signs}/>
 
                             <h3 className="accent-line  mt-3r">Benefits:</h3>
 
-                            <ul>
+                            <ul className="flex flex-wrap gap-2">
                                 {destination.benefits.map(benefit => (
-                                    <li key={benefit}>{benefit}</li>
+                                    <li className="pill gradient-bg text-white" key={benefit}>{benefit}</li>
                                 ))}
                             </ul>
                             

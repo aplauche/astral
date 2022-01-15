@@ -17,6 +17,7 @@ const EditDestinationPage = () => {
 
             if(router.isReady){
                 const {data} = await axios.get(`/api/destinations/${router.query.id}`)
+                console.log(data);
                 setDestinationData(data.destination)
             }
 

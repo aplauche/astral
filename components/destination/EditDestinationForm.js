@@ -1,9 +1,10 @@
 import Router, { useRouter } from 'next/router'
 import React, {useState, useEffect} from 'react'
 import benefitsData from '../../data/benefits'
-import signsData from '../../data/signs'
 import Image from 'next/image'
 import axios from 'axios'
+import SignsSelector from '../SignsSelector'
+
 
 const EditDestinationForm = ({data, id}) => {
 
@@ -75,10 +76,11 @@ const EditDestinationForm = ({data, id}) => {
 
     // Load in data of existing location if editing
     useEffect(() => {
+
         if(data){
             setName(data.name)
             setDescription(data.description)
-            setPrice(data.price)
+            setPrice(data.pricePerNight)
             setGuestCapacity(data.guestCapacity)
             setSigns(data.signs)
             setBenefits(data.benefits)
@@ -177,25 +179,12 @@ const EditDestinationForm = ({data, id}) => {
             required
             ></textarea>
 
-            <h3>Recommended Signs</h3>
-            {signsData.map((sign, index)=> (
-                <div key={sign}>
-                <input
-                    type="checkbox"
-                    id={`custom-checkbox-${index}`}
-                    name={sign}
-                    value={sign}
-                    checked={signs.includes(sign)}
-                    onChange={() => handleSignsChange(sign)}
-                  />
-                <label htmlFor={`custom-checkbox-${index}`}>{sign}</label>
-                </div>
-            ))}
+            <h3 className='text-center'>Recommended Signs</h3>
+            <SignsSelector onSignChange={handleSignsChange} selectedSigns={signs}/>
 
-            <div className="h-8"></div>
-
-            <h3>Benefits</h3>
-            <div className="flex flex-wrap gap-2">
+            
+            <h3 className='text-center mt-3r'>Benefits</h3>
+            <div className="flex flex-wrap gap-2 justify-center">
             {benefitsData.map((benefit, index)=> (
                 <div key={benefit}>
                     <input
@@ -208,7 +197,7 @@ const EditDestinationForm = ({data, id}) => {
                         onChange={() => handleBenefitsChange(benefit)}
                     />
                     <label 
-                        className={`pill cursor-pointer ${benefits.includes(benefit) ? 'active': ''}`}
+                        className={`pill cursor-pointer ${benefits.includes(benefit) ? 'gradient-bg': ''}`}
                         htmlFor={`custom-checkbox-${benefit}`}
                     >
 
