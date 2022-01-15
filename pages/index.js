@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DestinationCard from '../components/destination/DestinationCard'
 import HomeHero from '../components/layout/HomeHero'
+import SignsSelector from '../components/SignsSelector'
 
 
 
@@ -77,39 +78,52 @@ export default function Home({}) {
     setBenefitsFilter(updatedCheckedState)
   }
 
+  const handleSignsSelect = (selectedSign) => {
+    setSignFilter(selectedSign)
+  }
+
   return (
     <>   
         <Layout title="Astral | Home">
           <HomeHero />
           <div style={{marginTop: -48}} className="container">
             <div className='bg-white py-3r rounded-1r mb-3r flex flex-col items-center'>
-              <h4 className='font-mono'>Browse by sign</h4>
+              <h4 className='font-mono'>Select your sign</h4>
               <div className='h-0.5 bg-light w-32 mb-1r'></div>
-              <select value={signFilter} onChange={e => setSignFilter(e.target.value)}>
-                <option value="">Any</option>
-                <option value="Taurus">Taurus</option>
-                <option value="Leo">Leo</option>
-                <option value="Gemini">Gemini</option>
-              </select>
-              <div className='h-12'></div>
-              <h4 className='font-mono'>Browse by benefits</h4>
-              <div className='h-0.5 bg-light w-32 mb-1r'></div>
-              {benefits.map((benefit, index)=> (
-                <div key={benefit}>
-                <input
-                    type="checkbox"
-                    id={`custom-checkbox-${index}`}
-                    name={benefit}
-                    value={benefit}
-                    checked={benefitsFilter[index]}
-                    onChange={() => handleBenefitsSelect(index)}
-                  />
-                <label htmlFor={`custom-checkbox-${index}`}>{benefit}</label>
-                </div>
-              ))}
 
+              <div className='max-w-xl'>
+                <SignsSelector onSignChange={handleSignsSelect} selectedSign={signFilter} />
+              </div>
               
             </div>
+
+            <div className='py-2r text-center flex flex-col items-center'>
+              <h4 className='font-mono'>Browse by benefits</h4>
+              <div className='h-0.5 bg-light w-32 mb-1r'></div>
+              <div className="flex flex-wrap gap-2">
+                {benefits.map((benefit, index)=> (
+                  <div key={benefit}>
+                      <input
+                          type="checkbox" 
+                          id={`custom-checkbox-${benefit}`}
+                          className='hidden'
+                          name={benefit}
+                          value={benefit}
+                          checked={benefitsFilter[index]}
+                          onChange={() => handleBenefitsSelect(index)}
+                      />
+                      <label 
+                          className={`pill cursor-pointer hover:bg-dark hover:text-white ${benefitsFilter[index] ? 'gradient-bg text-white': ''}`}
+                          htmlFor={`custom-checkbox-${benefit}`}
+                      >
+
+                          {benefit}
+                      </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
           <div className='container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1r my-2r'>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 117 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-762,-671)">
+        <g id="taurus">
+            <path d="M766.181,674.766C766.181,674.766 775.161,675.779 778.706,679.816C782.25,683.853 788.63,699.366 796.765,705.05C804.901,710.735 809.585,712.343 820.374,711.991C831.163,711.638 842.576,710.262 846.642,704.105C850.707,697.948 857.046,685.006 860.735,680.995C864.424,676.984 874.72,675.186 874.72,675.186" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            <g transform="matrix(1,0,0,1,-6.03238,-12.2267)">
+                <circle cx="826.892" cy="763.149" r="39.142" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            </g>
+        </g>
+    </g>
+</svg>

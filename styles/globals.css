@@ -141,4 +141,10 @@ th, td {
     }
   }
 
+  /* EFFECTS */
+
+  .gradient-bg {
+      background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  }
+
 }

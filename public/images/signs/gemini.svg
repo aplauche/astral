@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 110 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-538,-667)">
+        <g id="gemini">
+            <path d="M542.047,671.101C542.047,671.101 551.775,691.797 591.684,692.46C631.594,693.123 643.486,672.276 643.486,672.276" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            <g transform="matrix(-1,-1.22465e-16,1.22465e-16,-1,1185.53,1454.35)">
+                <path d="M542.047,671.101C542.047,671.101 551.775,691.797 591.684,692.46C631.594,693.123 643.486,672.276 643.486,672.276" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            </g>
+            <path d="M616.437,691.174L616.278,764.035" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            <g transform="matrix(1,0,0,1,-46.268,0)">
+                <path d="M616.437,691.174L616.278,764.035" style="fill:none;stroke:black;stroke-width:7.5px;"/>
+            </g>
+        </g>
+    </g>
+</svg>
