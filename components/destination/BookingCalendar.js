@@ -8,6 +8,8 @@ import { convertToUTC } from "../../utils/timezoneCorrections";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
 
+import getStripe from '../../utils/getStripe'
+
 const BookingCalendar = ({bookingDestination}) => {
 
     const destination = bookingDestination
@@ -74,34 +76,52 @@ const BookingCalendar = ({bookingDestination}) => {
             end = convertToUTC(end)
         }
         setCheckInDate(start);
-        setCheckOutDate(end);
+        setCheckOutDate(end); 
     };
 
 
-    // Create a booking
+    // Create a booking (depracated pre-stripe setup)
+    // const newBookingHandler = async() => {
+
+    //     const bookingData = {
+    //         destination: router.query.id,
+    //         checkInDate: checkInDate,
+    //         checkOutDate: checkOutDate,
+    //         daysOfStay,
+    //         amountPaid: Number(destination.pricePerNight * daysOfStay),
+    //         paymentInfo: {
+    //             id: 'temp_stripe_id',
+    //             status: 'temp_stripe_status'
+    //         },
+    //         paidAt: Date.now()
+    //     }
+
+    //     try {
+    //         const config = {
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         }
+    //         const {data} = await axios.post('/api/bookings', bookingData, config)
+    //         router.push('/bookings')
+    //     } catch (error) {
+    //         console.log(error.response);
+    //     }
+
+    // }
     const newBookingHandler = async() => {
 
-        const bookingData = {
-            destination: router.query.id,
-            checkInDate: checkInDate,
-            checkOutDate: checkOutDate,
-            daysOfStay,
-            amountPaid: Number(destination.pricePerNight * daysOfStay),
-            paymentInfo: {
-                id: 'temp_stripe_id',
-                status: 'temp_stripe_status'
-            },
-            paidAt: Date.now()
-        }
+        try { 
+            const link = `/api/checkout/${destination._id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`
+            const session = await axios.get(link)
 
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            const {data} = await axios.post('/api/bookings', bookingData, config)
-            router.push('/bookings')
+            console.log(session)
+
+            const stripe = await getStripe()
+
+            // redirect to checkout
+
+            stripe.redirectToCheckout({sessionId: session.data.id})
         } catch (error) {
             console.log(error.response);
         }
