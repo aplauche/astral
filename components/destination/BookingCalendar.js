@@ -8,7 +8,6 @@ import { convertToUTC } from "../../utils/timezoneCorrections";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/router";
 
-import getStripe from '../../utils/getStripe'
 
 const BookingCalendar = ({bookingDestination}) => {
 
@@ -109,19 +108,23 @@ const BookingCalendar = ({bookingDestination}) => {
     //     }
 
     // }
-    const newBookingHandler = async() => {
+    const newBookingHandler = async(e) => {
+
+        e.preventDefault()
 
         try { 
             const link = `/api/checkout/${destination._id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`
-            const session = await axios.get(link)
+            const {data} = await axios.get(link)
 
-            console.log(session)
+            // console.log(session)
+           
+            router.push(data.url)
 
-            const stripe = await getStripe()
+            // const stripe = await getStripe()
 
             // redirect to checkout
-
-            stripe.redirectToCheckout({sessionId: session.data.id})
+            // stripe.redirectToCheckout({sessionId: session.data.id})
+            
         } catch (error) {
             console.log(error.response);
         }

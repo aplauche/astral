@@ -1,8 +1,8 @@
 import Layout from "../../components/layout/Layout";
 import { useEffect, useState } from "react";
-import dbConnect from "../../utils/dbConnect";
 
-import Destination from "../../models/destination";
+
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,12 +10,17 @@ import RecommendedSigns from "../../components/destination/RecommendedSigns";
 
 import BookingCalendar from "../../components/destination/BookingCalendar";
 
-export default function SingleDestinationPage({destination}) {
+import useDestination from "../../utils/useDestination";
+
+export default function SingleDestinationPage() {
+
+    const destination = useDestination() || null
 
     return (
         <>
             <Layout title="Details">
 
+                {destination && 
                 <article className="container my-3r">
                     <h1>{destination.name}</h1>
                     <div style= {{height: 500}} className="w-full relative mb-2r">
@@ -52,6 +57,7 @@ export default function SingleDestinationPage({destination}) {
                     </Link>
 
                 </article>
+                }
  
             
      
@@ -61,14 +67,14 @@ export default function SingleDestinationPage({destination}) {
 }
 
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
 
-    dbConnect()
+//     dbConnect()
 
-    const result = await Destination.findById(context.params.id)
-    const destination = result.toObject()
-    destination._id = destination._id.toString()
-    destination.createdAt = null
+//     const result = await Destination.findById(context.params.id)
+//     const destination = result.toObject()
+//     destination._id = destination._id.toString()
+//     destination.createdAt = null
   
-    return { props: { destination: destination } }
-}
+//     return { props: { destination: destination } }
+// }
