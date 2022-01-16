@@ -2,5 +2,14 @@ export default [
     "Focus",
     "Calm",
     "Energy",
-    "Fertility"
+    "Clarity",
+    "Transformation",
+    "Serenity",
+    "Connection",
+    "Vitality",
+    "Liberation",
+    "Intuition",
+    "Renewal",
+    "Harmony",
+    "Balance"
 ]

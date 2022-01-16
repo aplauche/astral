@@ -9,14 +9,13 @@ import DestinationCard from '../components/destination/DestinationCard'
 import HomeHero from '../components/layout/HomeHero'
 import SignsSelector from '../components/SignsSelector'
 
-
+import benefits from '../data/benefits'
 
 export default function Home({}) {
 
   const [destinations, setDestinations] = useState([])
   const [signFilter, setSignFilter] = useState("")
 
-  const [benefits, setBenefits] = useState(["Focus", "Calm", "Fertility"])
   const [benefitsFilter, setBenefitsFilter] = useState(new Array(benefits.length).fill(false))
   // const [benefitsFilter, setBenefitsFilter] = useState("")
 
@@ -100,7 +99,7 @@ export default function Home({}) {
             <div className='py-2r text-center flex flex-col items-center'>
               <h4 className='font-mono'>Browse by benefits</h4>
               <div className='h-0.5 bg-light w-32 mb-1r'></div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2 max-w-4xl">
                 {benefits.map((benefit, index)=> (
                   <div key={benefit}>
                       <input

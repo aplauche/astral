@@ -58,7 +58,7 @@ const AdminDestinationsPage = () => {
                             selector: row => 
                             (
                                 <div style= {{height: 40, width:40}} className="relative ">
-                                    <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
+                                    <Image className="w-full" src={row.images[0].url} priority layout="fill" objectFit="cover"/>
                                 </div>
                             )
                         },

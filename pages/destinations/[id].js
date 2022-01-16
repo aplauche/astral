@@ -24,7 +24,7 @@ export default function SingleDestinationPage() {
                 <article className="container my-3r">
                     <h1>{destination.name}</h1>
                     <div style= {{height: 500}} className="w-full relative mb-2r">
-                        <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
+                        <Image className="w-full" src={destination.images[0].url} priority layout="fill" objectFit="cover"/>
                     </div>
 
                     <div className="flex flex-col md:flex-row mb-3r">
