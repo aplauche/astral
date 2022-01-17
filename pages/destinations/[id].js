@@ -27,7 +27,7 @@ export default function SingleDestinationPage() {
                         <Image className="w-full" src={destination.images[0].url} priority layout="fill" objectFit="cover"/>
                     </div>
 
-                    <div className="flex flex-col md:flex-row mb-3r">
+                    <div className="flex flex-col md:flex-row mb-3r gap-3r items-start">
                         <div className="w-full md:w-1/2 lg:w-2/3 mb-3r">
                             <h2 className="accent-line font-mono font-normal">Destination Details:</h2>
                             <p>{destination.description}</p>

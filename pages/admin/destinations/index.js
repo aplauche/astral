@@ -57,7 +57,7 @@ const AdminDestinationsPage = () => {
                             title: "Destination",
                             selector: row => 
                             (
-                                <div style= {{height: 40, width:40}} className="relative ">
+                                <div style= {{height: 64, width:64}} className="relative ">
                                     <Image className="w-full" src={row.images[0].url} priority layout="fill" objectFit="cover"/>
                                 </div>
                             )
@@ -68,7 +68,7 @@ const AdminDestinationsPage = () => {
                         },
                         {
                             title: "Price",
-                            selector: row => row.pricePerNight
+                            selector: row => `$${row.pricePerNight}`
                         },
                         {
                             title: "Signs",
@@ -83,9 +83,9 @@ const AdminDestinationsPage = () => {
                             selector: row => (
                                 <>
                                 <Link href={`/admin/destinations/${row._id}`}>
-                                    <a className="inline-block mr-4 my-4">Edit</a>
+                                    <a className="inline-block mr-4 my-4 mb-0">Edit</a>
                                 </Link>
-                                <button onClick={() => handleDelete(row._id)} className="underline">Delete</button>
+                                <button onClick={() => handleDelete(row._id)} className="underline m-0 p-0">Delete</button>
                                 </>
                             )
                         },

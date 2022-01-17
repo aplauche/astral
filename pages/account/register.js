@@ -71,7 +71,7 @@ const RegisterPage = () => {
                 </form>
                 <div className='text-center my-1r'>
                     <Link href="/account/login">
-                        <a >Login</a>
+                        <a >Sign In</a>
                     </Link>
                 </div>
                 

@@ -104,7 +104,7 @@ const BookingsPage = () => {
                         },
                         {
                             title: "Total Billed",
-                            selector: row => `$${row.amountPaid * row.daysOfStay}`
+                            selector: row => `$${row.amountPaid}`
                         },
                         {
                             title: "",

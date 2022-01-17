@@ -41,9 +41,9 @@ export default function SingleBookingPage() {
 
                         
                         <h1>{booking.destination.name}</h1>
-                        <div style= {{height: "25vw", maxHeight: 450}} className="w-full relative mb-2r">
-                            <Image className="w-full" src="/images/astral-banner.jpg" priority layout="fill" objectFit="cover"/>
-                        </div>
+                        {/* <div style= {{height: "25vw", maxHeight: 450}} className="w-full relative mb-2r">
+                            <Image className="w-full" src={booking.destination.images[0].url} priority layout="fill" objectFit="cover"/>
+                        </div> */}
                         <p><strong>{convertToLocal(new Date(booking.checkInDate)).toDateString()} - {convertToLocal(new Date(booking.checkOutDate)).toDateString()}</strong></p>
                         <hr />   
 

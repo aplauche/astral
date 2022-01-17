@@ -97,7 +97,7 @@ export default function Home({}) {
             </div>
 
             <div className='py-2r text-center flex flex-col items-center'>
-              <h4 className='font-mono'>Browse by benefits</h4>
+              <h4 className='font-mono'>What are you looking for?</h4>
               <div className='h-0.5 bg-light w-32 mb-1r'></div>
               <div className="flex flex-wrap justify-center gap-2 max-w-4xl">
                 {benefits.map((benefit, index)=> (

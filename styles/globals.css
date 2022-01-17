@@ -103,7 +103,9 @@ tr {
     border-bottom: 1px solid #ccc;
 }
 th {
-    @apply bg-black text-white;
+    /* border-bottom: 2px solid black;
+    border-top: 2px solid black; */
+    @apply bg-black text-white font-normal font-mono;
 }
 th, td {
     @apply text-left px-2 py-1r;
